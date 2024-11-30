@@ -1,0 +1,11 @@
+.header-wrapper {
+    @apply flex gap-x-2 mt-14 justify-center
+}
+
+.header-title {
+    @apply uppercase lg:text-3xl md:text-2xl text-xl font-black text-gray-300 mb-8
+}
+
+.header-icon {
+    @apply text-primary-blue text-2xl md:text-3xl lg:text-4xl
+}

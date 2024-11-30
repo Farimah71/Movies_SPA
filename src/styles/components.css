@@ -1,0 +1,4 @@
+@import './components/button.css';
+@import './components/footer.css';
+@import './components/header.css';
+@import './components/suspense-loader.css'

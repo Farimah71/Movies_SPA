@@ -1,0 +1,11 @@
+.suspense-wrapper {
+    @apply flex flex-col gap-y-3 items-center w-full h-screen justify-center
+}
+
+.suspense-spinner {
+    @apply animate-spin text-light-blue
+}
+
+.suspense-text {
+    @apply text-light-blue text-xl italic
+}
