@@ -9,4 +9,5 @@ export type MyTableProps = {
   searchColumn?: string;
   loading?: boolean;
   onChangeHandler?: (page: TablePaginationConfig) => void;
+  onSearchHandler?: (term: string) => void;
 };

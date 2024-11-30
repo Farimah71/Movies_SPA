@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Table, Input } from "antd";
 import { MyTableProps } from "./table.types";
+import { debounce } from "lodash";
 
 import type { GetProps } from "antd";
 type SearchProps = GetProps<typeof Input.Search>;
@@ -17,23 +18,25 @@ export const MyTable = ({
   searchColumn,
   onChangeHandler,
 }: MyTableProps) => {
+  // ********** States ***********
   const [searchResult, setSearchResult] = useState<string[] | null>(null);
 
+  // ********** Functions ***********
+  const debouncedSearch = useCallback(
+    debounce((value: string) => {
+      // API call
+      // Save searched data in searchResult
+    }, 2000),
+    []
+  );
+
   const onSearch: SearchProps["onSearch"] = (value) => {
-    const filteredData = dataSource.filter(
-      (data: any) =>
-        searchColumn &&
-        data[searchColumn]
-          ?.toString()
-          .toLowerCase()
-          .includes(value.toLowerCase())
-    );
-    setSearchResult(filteredData);
+    debouncedSearch(value);
   };
 
   return (
     <div
-      className={`mb-10 border-black mx-auto max-w-[250px] xs:max-w-[400px] sm:max-w-full w-full`}
+      className={`mb-10 border-black sm:w-full min-w-fit`}
       style={{
         padding: 24,
         borderRadius: "16px",
@@ -42,14 +45,14 @@ export const MyTable = ({
       <div className="flex justify-between gap-x-5 my-3">
         <Search
           placeholder={searchColumn && `Search by ${searchColumn}...`}
-          onSearch={onSearch}
-          enterButton
           allowClear
+          onChange={(e) => onSearch(e.target.value)}
           size="large"
+          // loading
         />
       </div>
       {totalCount && totalCount > 0 ? (
-        <p className="my-2 text-text-primary-blue/50 dark:text-text-primary-blue/60 text-right">
+        <p className="my-2 text-white/70 text-right">
           total:{" "}
           <span className="text-primary-blue">
             {totalCount} {totalCount === 1 ? "item" : "items"}
@@ -65,10 +68,9 @@ export const MyTable = ({
           pageSize: pageSize,
           current: currentPage,
           total: totalCount,
+          showSizeChanger: false,
         }}
         onChange={(page) => onChangeHandler && onChangeHandler(page)}
-        sticky={{ offsetHeader: 100 }}
-        scroll={{ x: "max-content" }}
       />
     </div>
   );

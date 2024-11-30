@@ -2,12 +2,6 @@ import { Header } from "../../components/layout/header";
 import { Movies } from "./_components/movies";
 
 const Home: React.FC = () => {
-  // ********** States ***********
-
-  // ********** Hooks ***********
-
-  // ********** Functions ***********
-
   // ********** JSX ***********
   return (
     <>

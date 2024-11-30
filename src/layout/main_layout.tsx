@@ -11,7 +11,7 @@ const MainLayout: React.FC = () => {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <div>
-        <h1 className="text-purple-200 text-center mt-20 font-black text-3xl md:text-4xl">
+        <h1 className="text-purple-200 text-center mt-20 px-3 font-black text-3xl md:text-4xl">
           Lights, Camera, Action: Dive into the World of Movies
         </h1>
 
@@ -25,7 +25,7 @@ const MainLayout: React.FC = () => {
         </div>
         {/* Teaser Section::end */}
 
-        <div className="lg:w-[calc(100%-10%)] w-[80%] border-2 mx-auto border-blue-400 rounded-lg backdrop-blur-md">
+        <div className="lg:w-[calc(100%-10%)] md:w-[80%] w-full border-2 mx-auto border-blue-400 rounded-lg backdrop-blur-md">
           {<Outlet />}
         </div>
       </div>
