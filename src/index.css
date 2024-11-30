@@ -2,15 +2,14 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import './styles/components.css';
+@import "./styles/components.css";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  /* color-scheme: light dark; */
 }
 
 body {
-  background-image: url('./assets/wave-4.webp');
+  background-image: url("./assets/wave-4.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-color: black;
@@ -26,4 +25,10 @@ body {
 ::-webkit-scrollbar-thumb {
   border-radius: 999px;
   background-color: #bbbfca;
+}
+
+/* Antd styles */
+/************ Table ************/
+.ant-table-thead .ant-table-cell {
+  text-transform: uppercase;
 }
