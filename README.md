@@ -18,6 +18,8 @@ Welcome to Movie Explorer! Dive into the world of movies with our sleek and inte
   * [Screenshots](#screenshots)
   * [Packages](#packages)
   * [Style](#style)
+  * [Key feature](#key-feature)
+  * [Tests](#tests)
   * [API Reference](#api-reference)
   * [Badges](#badges)
  
