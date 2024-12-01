@@ -16,10 +16,10 @@ const MainLayout: React.FC = () => {
 
         {/* Teaser Section::start */}
         <div className="flex my-14 justify-center">
-          <img src={Teaser} width={"25%"} height={100} />
-          <img src={Teaser2} width={"25%"} />
-          <img src={Teaser3} width={"25%"} />
-          <img src={Teaser5} width={"25%"} />
+          <img src={Teaser} width={"25%"} loading="lazy" className="aspect-square" alt="Poster" />
+          <img src={Teaser2} width={"25%"} loading="lazy" className="aspect-square" alt="Poster" />
+          <img src={Teaser3} width={"25%"} loading="lazy" className="aspect-square" alt="Poster" />
+          <img src={Teaser5} width={"25%"} loading="lazy" className="aspect-square" alt="Poster" />
         </div>
         {/* Teaser Section::end */}
 
