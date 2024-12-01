@@ -3,7 +3,6 @@ import { Footer } from "../components/layout/footer";
 import Teaser from "../assets/Teaser/once-upon-a-time.jpg";
 import Teaser2 from "../assets/Teaser/avatar.jpg";
 import Teaser3 from "../assets/Teaser/once-more.jpg";
-import Teaser4 from "../assets/Teaser/venom.webp";
 import Teaser5 from "../assets/Teaser/image.jpg";
 
 const MainLayout: React.FC = () => {
@@ -17,11 +16,10 @@ const MainLayout: React.FC = () => {
 
         {/* Teaser Section::start */}
         <div className="flex my-14 justify-center">
-          <img src={Teaser} width={"18%"} height={100} />
-          <img src={Teaser2} width={"18%"} />
-          <img src={Teaser3} width={"18%"} />
-          <img src={Teaser4} width={"18%"} />
-          <img src={Teaser5} width={"18%"} />
+          <img src={Teaser} width={"25%"} height={100} />
+          <img src={Teaser2} width={"25%"} />
+          <img src={Teaser3} width={"25%"} />
+          <img src={Teaser5} width={"25%"} />
         </div>
         {/* Teaser Section::end */}
 

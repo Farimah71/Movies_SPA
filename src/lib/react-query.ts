@@ -24,12 +24,12 @@ export const queryClient = new QueryClient({
       retry: 1,
       refetchOnWindowFocus: false,
       throwOnError: false,
-      gcTime: 60 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
     },
     mutations: {
       throwOnError: false,
       retry: 1,
-      gcTime: 60 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
     },
   },
 });

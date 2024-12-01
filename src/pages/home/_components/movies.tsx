@@ -1,9 +1,11 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { MyTable } from "../../../components/table";
 import { TopLoader } from "../../../components/top-loader";
-import { useGetMovies } from "../core/_request";
+import { useGetMovies, useSearchMovies } from "../core/_request";
 import { MovieModel } from "../core/_model";
 import { TableProps } from "antd";
+import { debounce } from "lodash";
+import { IMG_URL } from "../../../configs/global";
 
 type Date = {
   from: string;
@@ -20,40 +22,24 @@ interface Data {
 export const Movies: FC = () => {
   // ********** States ***********
   const [pageNumber, setPageNumber] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState<Data[]>();
+  const [searchedData, setSearchedData] = useState<Data[]>();
   const [date, setDate] = useState<Date>({ from: "", to: "" });
-  const [shouldFetch, setShouldFetch] = useState<boolean>(false);
+  const [shouldFetch, setShouldFetch] = useState({ get: false, search: false });
 
-  // ********** Hooks ***********
-  const { data: response, isPending } = useGetMovies(
-    { page: pageNumber, fromDate: date.from, toDate: date.to },
-    shouldFetch
-  );
-
-  useEffect(() => {
-    const fromDate = new Date(new Date().setDate(new Date().getDate() - 30))
-      .toISOString()
-      .split("T")[0];
-    const toDate = new Date().toISOString().split("T")[0];
-    setDate({ from: fromDate, to: toDate });
-    setShouldFetch(true);
-  }, []);
-  useEffect(() => {
-    setShouldFetch(true);
-  }, [pageNumber]);
-  useEffect(() => {
-    if (response?.results.length) {
-      setShouldFetch(false);
-      const data = response.results.map((movie: MovieModel) => ({
-        id: movie.id,
-        poster: "https://image.tmdb.org/t/p/original" + movie.poster_path,
-        title: movie.title,
-        overview: movie.overview,
-      }));
-      data && setData(data);
-    }
-  }, [response]);
-
+  // ********** Variables ***********
+  const queryOptions = {
+    page: pageNumber,
+    fromDate: date.from,
+    toDate: date.to,
+  };
+  const searchOptions = {
+    page: pageNumber,
+    fromDate: date.from,
+    toDate: date.to,
+    query: searchTerm,
+  };
   const columns: TableProps["columns"] = [
     {
       key: 1,
@@ -75,20 +61,84 @@ export const Movies: FC = () => {
     },
   ];
 
+  // ********** Hooks ***********
+  const { data: response, isFetching } = useGetMovies(
+    queryOptions,
+    shouldFetch.get
+  );
+  const { data: searchResponse, isFetching: searchFetching } = useSearchMovies(
+    searchOptions,
+    shouldFetch.search
+  );
+
+  useEffect(() => {
+    const fromDate = new Date(new Date().setDate(new Date().getDate() - 30))
+      .toISOString()
+      .split("T")[0];
+    const toDate = new Date().toISOString().split("T")[0];
+    setDate({ from: fromDate, to: toDate });
+    setShouldFetch((prev) => ({ ...prev, get: true }));
+  }, []);
+  useEffect(() => {
+    setShouldFetch({
+      search: searchTerm ? true : false,
+      get: searchTerm ? false : true,
+    });
+  }, [pageNumber]);
+  useEffect(() => {
+    if (response?.results.length) {
+      setShouldFetch((prev) => ({ ...prev, get: false }));
+      const data = response.results.map((movie: MovieModel) => ({
+        id: movie.id,
+        poster: IMG_URL + movie.poster_path,
+        title: movie.title,
+        overview: movie.overview,
+      }));
+      data && setData(data);
+    }
+  }, [response]);
+  useEffect(() => {
+    setShouldFetch((prev) => ({ ...prev, search: false }));
+    if (searchResponse?.results) {
+      const data = searchResponse.results.map((movie: MovieModel) => ({
+        id: movie.id,
+        poster: IMG_URL + movie.poster_path,
+        title: movie.title,
+        overview: movie.overview,
+      }));
+      data && setSearchedData(data);
+    }
+  }, [searchResponse, searchTerm]);
+
+  // ********** Functions ***********
+  const debouncedSearch = useCallback(
+    debounce((value: string) => {
+      setSearchTerm(value);
+      setPageNumber(1);
+      setShouldFetch((prev) => ({ ...prev, search: true }));
+    }, 1000),
+    []
+  );
+
   // ********** JSX ***********
   return (
     <div className="w-full">
-      <TopLoader isContentLoading={isPending} />
+      <TopLoader isContentLoading={isFetching || searchFetching} />
       <MyTable
-        dataSource={data}
+        dataSource={searchTerm ? searchedData : data}
         columns={columns}
-        totalCount={response?.total_pages}
         pageSize={20}
-        loading={isPending}
+        totalCount={
+          searchTerm ? searchResponse?.total_results : response?.total_pages
+        }
+        loading={isFetching || searchFetching}
+        searchLoading={searchFetching}
         searchColumn="title"
+        currentPage={pageNumber}
         onChangeHandler={(page) => {
           setPageNumber(page?.current!);
         }}
+        onSearchHandler={(term) => debouncedSearch(term)}
       />
     </div>
   );

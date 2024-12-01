@@ -1,39 +1,22 @@
-import { useCallback, useState } from "react";
+import { FC } from "react";
 import { Table, Input } from "antd";
 import { MyTableProps } from "./table.types";
-import { debounce } from "lodash";
-
-import type { GetProps } from "antd";
-type SearchProps = GetProps<typeof Input.Search>;
 
 const { Search } = Input;
 
-export const MyTable = ({
+export const MyTable: FC<MyTableProps> = ({
   dataSource,
   columns,
   loading,
+  searchLoading,
   pageSize,
   totalCount,
   currentPage,
   searchColumn,
   onChangeHandler,
-}: MyTableProps) => {
-  // ********** States ***********
-  const [searchResult, setSearchResult] = useState<string[] | null>(null);
-
-  // ********** Functions ***********
-  const debouncedSearch = useCallback(
-    debounce((value: string) => {
-      // API call
-      // Save searched data in searchResult
-    }, 2000),
-    []
-  );
-
-  const onSearch: SearchProps["onSearch"] = (value) => {
-    debouncedSearch(value);
-  };
-
+  onSearchHandler,
+}) => {
+  // ********** JSX ***********
   return (
     <div
       className={`mb-10 border-black sm:w-full min-w-fit`}
@@ -46,9 +29,9 @@ export const MyTable = ({
         <Search
           placeholder={searchColumn && `Search by ${searchColumn}...`}
           allowClear
-          onChange={(e) => onSearch(e.target.value)}
+          onChange={(e) => onSearchHandler && onSearchHandler(e.target.value)}
           size="large"
-          // loading
+          loading={searchLoading}
         />
       </div>
       {totalCount && totalCount > 0 ? (
@@ -63,7 +46,7 @@ export const MyTable = ({
       <Table
         loading={loading}
         columns={columns}
-        dataSource={searchResult ? searchResult : dataSource}
+        dataSource={dataSource}
         pagination={{
           pageSize: pageSize,
           current: currentPage,

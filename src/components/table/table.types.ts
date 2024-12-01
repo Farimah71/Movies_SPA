@@ -8,6 +8,7 @@ export type MyTableProps = {
   currentPage?: number;
   searchColumn?: string;
   loading?: boolean;
+  searchLoading?: boolean;
   onChangeHandler?: (page: TablePaginationConfig) => void;
   onSearchHandler?: (term: string) => void;
 };
