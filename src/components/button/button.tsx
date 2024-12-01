@@ -12,7 +12,7 @@ export const Button: React.FC<ButtonProps> = ({
     <button className={`btn ${className}`} {...rest}>
       <p className="flex gap-x-2">
         {icon && <span>{icon}</span>}
-        <span>{title}</span>
+        <span>{isLoading ? "Wait..." : title}</span>
       </p>
     </button>
   );
