@@ -1,7 +1,0 @@
-.footer {
-    @apply text-gray-500 text-center w-full select-none my-5
-}
-
-.footer-link {
-    @apply text-gray-400
-}

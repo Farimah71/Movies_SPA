@@ -1,3 +1,0 @@
-.btn {
-  @apply border my-5 rounded-lg md:p-3 p-2 hover:text-purple-400 hover:border-purple-500 duration-500 focus:outline-none;
-}
