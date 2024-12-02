@@ -14,7 +14,7 @@ const NotFound: React.FC = () => {
       <span className="text-gray-400 md:text-2xl text-lg font-semibold mb-32">
         We couldn't find that page.
       </span>
-      <Link to={"/"}>
+      <Link to={"/Movies_SPA/"}>
         <Button title="Return" />
       </Link>
     </div>

@@ -1,5 +1,5 @@
 {
-  "homepage": "https://Farimah71.github.io/",
+  "homepage": "https://Farimah71.github.io/Movies_SPA/",
   "name": "movies",
   "private": true,
   "version": "0.1.0",
@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "test": "jest",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.62.0",
