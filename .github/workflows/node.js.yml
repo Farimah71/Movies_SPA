@@ -4,37 +4,34 @@
 name: Deploy React App
 
 on:
-push:
-branches:
-•  main
-
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-build:
-runs-on: ubuntu-latest
+  build:
 
-steps:
-•  name: Checkout code
+    runs-on: ubuntu-latest
 
-uses: actions/checkout@v2
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-•  name: Set up Node.js
-
-uses: actions/setup-node@v2
-with:
-node-version: '14'
-
-•  name: Install dependencies
-
-run: npm install
-
-•  name: Build the app
-
-run: npm run build
-
-•  name: Deploy to GitHub Pages
-
-uses: peaceiris/actions-gh-pages@v3
-with:
-github_token: ${{ secrets.GITHUB_TOKEN }}
-publish_dir: ./build
+    steps:
+    - uses: actions/checkout@v4
+    - name: Checkout code
+    - name: Set up Node.js
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '22.x'
+    - name: Install dependencies
+    - run: npm install
+    - name: Build the app
+    - run: npm run build
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build
