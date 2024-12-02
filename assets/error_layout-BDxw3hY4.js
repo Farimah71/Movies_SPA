@@ -1,1 +1,0 @@
-import{j as r,O as o}from"./index-C4i_vIBa.js";const d=()=>r.jsx("div",{className:"lg:w-[1000px] w-[90%] border-2 my-20 mx-auto border-purple-400 overflow-hidden rounded-lg backdrop-blur-md",children:r.jsx(o,{})});export{d as default};
