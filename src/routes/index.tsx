@@ -13,7 +13,7 @@ const AppRoutes = () => {
   return (
     <Suspense fallback={<SuspenseLoader />}>
       <Routes>
-        <Route path="/" element={<MainLayout />}>
+        <Route path="/home" element={<MainLayout />}>
           <Route index element={<Home />} />
         </Route>
         <Route path="*" element={<ErrorLayout />}>
