@@ -1,9 +1,9 @@
 {
+  "homepage": "https://Farimah71.github.io/Movies_SPA",
   "name": "movies",
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "homepage": "https://Farimah71.github.io/Movies_SPA",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "test": "jest",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "tsc -b && vite build && gh-pages -d dist"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.62.0",
