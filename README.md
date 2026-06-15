@@ -1,6 +1,9 @@
 # Movies list website
 Welcome to Movie Explorer! Dive into the world of movies with our sleek and interactive Single Page Application. Whether you're a film buff or just looking for something to watch, we've got you covered with a comprehensive movie database, complete with search and pagination features. :clapper:
 
+## Demo
+To preview live project click [Demo](https://farimah71.github.io/Movies_SPA/).
+
 ## Features
 
 - Responsive
@@ -12,6 +15,7 @@ Welcome to Movie Explorer! Dive into the world of movies with our sleek and inte
 ## Table of contents
 
 - [Movies list website](#movies-list-website)
+  * [Demo](#demo)
   * [Features](#features)
   * [Table of contents](#table-of-contents)
   * [Getting started](#getting-started)
